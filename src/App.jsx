@@ -52,12 +52,7 @@ function App() {
                 hasFeedback={hasFeedback}
             />
             {hasFeedback ? (
-                <Feedback
-                    good={estim.good}
-                    bad={estim.bad}
-                    neutral={estim.neutral}
-                    totalPositivePercent={totalPositivePercent}
-                />
+                <Feedback {...estim} totalPositivePercent={totalPositivePercent} />
             ) : (
                 <Notification />
             )}
