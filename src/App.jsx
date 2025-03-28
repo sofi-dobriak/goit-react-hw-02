@@ -6,19 +6,9 @@ import Feedback from './components/feedback/Feedback';
 import Notification from './components/notification/Notification';
 
 function App() {
-    const [estim, setEstim] = useState(() => {
-        const savedEstim = window.localStorage.getItem('estim-key');
-
-        if (savedEstim !== null) {
-            return JSON.parse(savedEstim);
-        }
-
-        return {
-            good: 0,
-            neutral: 0,
-            bad: 0,
-        };
-    });
+    const [estim, setEstim] = useState(
+        () => JSON.parse(localStorage.getItem('estim-key')) ?? { good: 0, neutral: 0, bad: 0 }
+    );
 
     const updateFeedback = feedbackType => {
         setEstim({
@@ -36,26 +26,25 @@ function App() {
     };
 
     useEffect(() => {
-        window.localStorage.setItem('estim-key', JSON.stringify(estim));
+        localStorage.setItem('estim-key', JSON.stringify(estim));
     }, [estim]);
 
-    const hasFeedback = estim.good > 0 || estim.bad > 0 || estim.neutral > 0;
-    const totalFeedback = estim.good + estim.bad + estim.neutral;
+    const totalFeedback = estim.good + estim.neutral + estim.bad;
+    const hasFeedback = totalFeedback > 0;
     const totalPositivePercent = Math.round((estim.good / totalFeedback) * 100);
 
     return (
         <>
             <Description />
+
             <Options
                 updateFeedback={updateFeedback}
                 resetFeedback={resetFeedback}
                 hasFeedback={hasFeedback}
             />
-            {hasFeedback ? (
-                <Feedback {...estim} totalPositivePercent={totalPositivePercent} />
-            ) : (
-                <Notification />
-            )}
+
+            {hasFeedback && <Feedback {...estim} totalPositivePercent={totalPositivePercent} />}
+            {!hasFeedback && <Notification />}
         </>
     );
 }

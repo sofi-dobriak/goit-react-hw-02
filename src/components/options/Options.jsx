@@ -4,26 +4,16 @@ const Options = ({ updateFeedback, resetFeedback, hasFeedback }) => {
     return (
         <>
             <ul className={styles.btnList}>
-                <li className={styles.btnItem}>
-                    <button onClick={() => updateFeedback('good')} className={styles.btn}>
-                        Good
-                    </button>
+                <li>
+                    <button onClick={() => updateFeedback('good')}>Good</button>
                 </li>
-                <li className={styles.btnItem}>
-                    <button onClick={() => updateFeedback('neutral')} className={styles.btn}>
-                        Neutral
-                    </button>
+                <li>
+                    <button onClick={() => updateFeedback('neutral')}>Neutral</button>
                 </li>
-                <li className={styles.btnItem}>
-                    <button onClick={() => updateFeedback('bad')} className={styles.btn}>
-                        Bad
-                    </button>
+                <li>
+                    <button onClick={() => updateFeedback('bad')}>Bad</button>
                 </li>
-                {hasFeedback && (
-                    <li>
-                        <button onClick={resetFeedback}>Reset</button>
-                    </li>
-                )}
+                <li>{hasFeedback && <button onClick={resetFeedback}>Reset</button>}</li>
             </ul>
         </>
     );

@@ -1,6 +1,6 @@
 import styles from './Feedback.module.css';
 
-const Feedback = ({ good, bad, neutral, totalPositivePercent }) => {
+const Feedback = ({ good, neutral, bad, totalPositivePercent }) => {
     return (
         <>
             <ul className={styles.estimList}>
